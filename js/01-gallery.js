@@ -1,11 +1,11 @@
 import { galleryItems } from './gallery-items.js';
+
 // Change code below this line
 
 const galleryContainer = document.querySelector('.gallery');
 const cardsMarkup = createImgCardsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-galleryContainer.addEventListener('click',ongalleryContainerClick);
-
+galleryContainer.addEventListener('click', ongalleryContainerClick);
 
 function createImgCardsMarkup(galleryItems) {
    return galleryItems.map(({preview, original}) => {
@@ -36,3 +36,12 @@ function ongalleryContainerClick(e) {
    console.log(e.target);
    
 };
+
+
+// const instance = basicLightbox.create(`
+//     <img src=${galleryItems.original} width="800" height="600">
+// `)
+
+// instance.show()
+
+
