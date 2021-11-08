@@ -22,6 +22,7 @@ function createImgCardsMarkup(galleryItems) {
 console.log(galleryItems);
 
 function ongalleryContainerClick(e) {
+    e.preventDefault();
    const isGalleryClass = e.target.classList.contains('.gallery__image');
    if (!isGalleryClass) {
       return;
@@ -29,3 +30,15 @@ function ongalleryContainerClick(e) {
    console.log(e.target);
    
 };
+
+
+// ===============================================================================
+
+const lightbox = new SimpleLightbox(".gallery a", {
+  captionSelector: "img",
+  captionsData: "alt",
+  captionPosition: "bottom", 
+  captionDelay: 250, 
+  showCounter: false, 
+  scrollZoom: false, 
+});

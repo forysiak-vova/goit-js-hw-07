@@ -1,51 +1,45 @@
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
-
-
 import { galleryItems } from './gallery-items.js';
-
-// Change code below this line
-
 const galleryContainer = document.querySelector('.gallery');
-const cardsMarkup = createImgCardsMarkup(galleryItems);
-galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-galleryContainer.addEventListener('click', ongalleryContainerClick);
-
-function createImgCardsMarkup(galleryItems) {
-   return galleryItems.map(({preview, original}) => {
-   
-      return  `
-   <div class="gallery__item">
-  <a class="gallery__link" href="${original}">
-    <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="Image description"
-    />
-  </a>
-</div>
-   `
-   }).join('');
-   
-}
-
-console.log(galleryItems);
-
-function ongalleryContainerClick(e) {
-   const isGalleryClass = e.target.classList.contains('.gallery__image');
-   if (!isGalleryClass) {
-      return;
-   }
-   console.log(e.target);
-   
+const createMarkupGallery = (items) => {
+  return items.map((element) => createMarkupItem(element)).join("");
 };
+const createMarkupItem = ({ preview, original, description }) => {
+  return `<div class="gallery__item">
+            <a class="gallery__link" href="${original}">
+              <img
+                class="gallery__image"
+                src="${preview}"
+                data-source="${original}"
+                alt="${description}"
+              />
+            </a>
+          </div>`;
+};
+galleryContainer.insertAdjacentHTML('beforeend', createMarkupGallery(galleryItems));
+// console.log(galleryItems);
+const onImgClick = (e) => {
+  e.preventDefault();
+  if (e.target.classList.value !== "gallery__image") {
+    return;
+  }
+  instance.element().querySelector(".current__img").src =
+    e.target.dataset.source;
+instance.show();
+};
+const onClose = (e) => {
+  if (e.key === "Escape") {
+    instance.close();
+  }
+};
+const instance = basicLightbox.create(
+  `<img class="current__img" width="1280" src="">`,
+  {
+  
+    onShow: () => window.addEventListener("keydown", onClose),
+    onClose: () => window.removeEventListener("keydown", onClose),
+  }
+);
+galleryContainer.addEventListener('click', onImgClick);
 
-
-// const instance = basicLightbox.create(`
-//     <img src=${galleryItems.original} width="800" height="600">
-// `)
-
-// instance.show()
 
 
